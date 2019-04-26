@@ -16,7 +16,7 @@
 			success: function(data){
 				$('#mass').html(data[4]);
 				$('#veloc').html(data[37]);
-				if(data.hi_slot){
+				if(data[12]){
 					var options_high = ""
 					$.ajax({
 						url: 'ajax/modules/',
@@ -37,7 +37,7 @@
 						$('#highs').append("</select></div>");
 					};
 				};
-				if(data.data[13]){
+				if(data[13]){
 					var options_mid = ""
 					$.ajax({
 						url: 'ajax/modules/',
