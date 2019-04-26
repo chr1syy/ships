@@ -72,10 +72,44 @@ class Invitems(models.Model):
     class Meta:
         managed = False
         db_table = 'invItems'
+
+class Dgmeffects(models.Model):
+    effectid = models.IntegerField(db_column='effectID', primary_key=True)  # Field name made lowercase.
+    effectname = models.CharField(db_column='effectName', max_length=400, blank=True, null=True)  # Field name made lowercase.
+    effectcategory = models.IntegerField(db_column='effectCategory', blank=True, null=True)  # Field name made lowercase.
+    preexpression = models.IntegerField(db_column='preExpression', blank=True, null=True)  # Field name made lowercase.
+    postexpression = models.IntegerField(db_column='postExpression', blank=True, null=True)  # Field name made lowercase.
+    description = models.CharField(max_length=1000, blank=True, null=True)
+    guid = models.CharField(max_length=60, blank=True, null=True)
+    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
+    isoffensive = models.IntegerField(db_column='isOffensive', blank=True, null=True)  # Field name made lowercase.
+    isassistance = models.IntegerField(db_column='isAssistance', blank=True, null=True)  # Field name made lowercase.
+    durationattributeid = models.IntegerField(db_column='durationAttributeID', blank=True, null=True)  # Field name made lowercase.
+    trackingspeedattributeid = models.IntegerField(db_column='trackingSpeedAttributeID', blank=True, null=True)  # Field name made lowercase.
+    dischargeattributeid = models.IntegerField(db_column='dischargeAttributeID', blank=True, null=True)  # Field name made lowercase.
+    rangeattributeid = models.IntegerField(db_column='rangeAttributeID', blank=True, null=True)  # Field name made lowercase.
+    falloffattributeid = models.IntegerField(db_column='falloffAttributeID', blank=True, null=True)  # Field name made lowercase.
+    disallowautorepeat = models.IntegerField(db_column='disallowAutoRepeat', blank=True, null=True)  # Field name made lowercase.
+    published = models.IntegerField(blank=True, null=True)
+    displayname = models.CharField(db_column='displayName', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    iswarpsafe = models.IntegerField(db_column='isWarpSafe', blank=True, null=True)  # Field name made lowercase.
+    rangechance = models.IntegerField(db_column='rangeChance', blank=True, null=True)  # Field name made lowercase.
+    electronicchance = models.IntegerField(db_column='electronicChance', blank=True, null=True)  # Field name made lowercase.
+    propulsionchance = models.IntegerField(db_column='propulsionChance', blank=True, null=True)  # Field name made lowercase.
+    distribution = models.IntegerField(blank=True, null=True)
+    sfxname = models.CharField(db_column='sfxName', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    npcusagechanceattributeid = models.IntegerField(db_column='npcUsageChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
+    npcactivationchanceattributeid = models.IntegerField(db_column='npcActivationChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
+    fittingusagechanceattributeid = models.IntegerField(db_column='fittingUsageChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
+    modifierinfo = models.TextField(db_column='modifierInfo', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'dgmEffects'
         
 class Dgmtypeeffects(models.Model):
-    typeid = models.ForeignKey(Invtypes, on_delete=models.PROTECT, db_column='typeID', primary_key=True)  # Field name made lowercase.
-    effectid = models.IntegerField(db_column='effectID')  # Field name made lowercase.
+    typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
+    effectid = models.ForeignKey(dgmEffects, on_delete=models.PROTECT, db_column='effectID')  # Field name made lowercase.
     isdefault = models.IntegerField(db_column='isDefault', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
@@ -414,42 +448,6 @@ class Dgmattributetypes(models.Model):
     class Meta:
         managed = False
         db_table = 'dgmAttributeTypes'
-
-
-class Dgmeffects(models.Model):
-    effectid = models.IntegerField(db_column='effectID', primary_key=True)  # Field name made lowercase.
-    effectname = models.CharField(db_column='effectName', max_length=400, blank=True, null=True)  # Field name made lowercase.
-    effectcategory = models.IntegerField(db_column='effectCategory', blank=True, null=True)  # Field name made lowercase.
-    preexpression = models.IntegerField(db_column='preExpression', blank=True, null=True)  # Field name made lowercase.
-    postexpression = models.IntegerField(db_column='postExpression', blank=True, null=True)  # Field name made lowercase.
-    description = models.CharField(max_length=1000, blank=True, null=True)
-    guid = models.CharField(max_length=60, blank=True, null=True)
-    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
-    isoffensive = models.IntegerField(db_column='isOffensive', blank=True, null=True)  # Field name made lowercase.
-    isassistance = models.IntegerField(db_column='isAssistance', blank=True, null=True)  # Field name made lowercase.
-    durationattributeid = models.IntegerField(db_column='durationAttributeID', blank=True, null=True)  # Field name made lowercase.
-    trackingspeedattributeid = models.IntegerField(db_column='trackingSpeedAttributeID', blank=True, null=True)  # Field name made lowercase.
-    dischargeattributeid = models.IntegerField(db_column='dischargeAttributeID', blank=True, null=True)  # Field name made lowercase.
-    rangeattributeid = models.IntegerField(db_column='rangeAttributeID', blank=True, null=True)  # Field name made lowercase.
-    falloffattributeid = models.IntegerField(db_column='falloffAttributeID', blank=True, null=True)  # Field name made lowercase.
-    disallowautorepeat = models.IntegerField(db_column='disallowAutoRepeat', blank=True, null=True)  # Field name made lowercase.
-    published = models.IntegerField(blank=True, null=True)
-    displayname = models.CharField(db_column='displayName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    iswarpsafe = models.IntegerField(db_column='isWarpSafe', blank=True, null=True)  # Field name made lowercase.
-    rangechance = models.IntegerField(db_column='rangeChance', blank=True, null=True)  # Field name made lowercase.
-    electronicchance = models.IntegerField(db_column='electronicChance', blank=True, null=True)  # Field name made lowercase.
-    propulsionchance = models.IntegerField(db_column='propulsionChance', blank=True, null=True)  # Field name made lowercase.
-    distribution = models.IntegerField(blank=True, null=True)
-    sfxname = models.CharField(db_column='sfxName', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    npcusagechanceattributeid = models.IntegerField(db_column='npcUsageChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
-    npcactivationchanceattributeid = models.IntegerField(db_column='npcActivationChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
-    fittingusagechanceattributeid = models.IntegerField(db_column='fittingUsageChanceAttributeID', blank=True, null=True)  # Field name made lowercase.
-    modifierinfo = models.TextField(db_column='modifierInfo', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'dgmEffects'
-
 
 class Dgmexpressions(models.Model):
     expressionid = models.IntegerField(db_column='expressionID', primary_key=True)  # Field name made lowercase.
