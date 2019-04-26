@@ -109,7 +109,7 @@ class Dgmeffects(models.Model):
         
 class Dgmtypeeffects(models.Model):
     typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
-    effectid = models.ForeignKey(dgmEffects, on_delete=models.PROTECT, db_column='effectID')  # Field name made lowercase.
+    effectid = models.ForeignKey(Dgmeffects, on_delete=models.PROTECT, db_column='effectID')  # Field name made lowercase.
     isdefault = models.IntegerField(db_column='isDefault', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
