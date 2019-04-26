@@ -7,6 +7,71 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class Invcategories(models.Model):
+    categoryid = models.IntegerField(db_column='categoryID', primary_key=True)  # Field name made lowercase.
+    categoryname = models.CharField(db_column='categoryName', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
+    published = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'invCategories'
+        
+class Invgroups(models.Model):
+    groupid = models.IntegerField(db_column='groupID', primary_key=True)  # Field name made lowercase.
+    categoryid = models.IntegerField(db_column='categoryID', blank=True, null=True)  # Field name made lowercase.
+    groupname = models.CharField(db_column='groupName', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
+    usebaseprice = models.IntegerField(db_column='useBasePrice', blank=True, null=True)  # Field name made lowercase.
+    anchored = models.IntegerField(blank=True, null=True)
+    anchorable = models.IntegerField(blank=True, null=True)
+    fittablenonsingleton = models.IntegerField(db_column='fittableNonSingleton', blank=True, null=True)  # Field name made lowercase.
+    published = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'invGroups'
+
+class Invitems(models.Model):
+    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
+    typeid = models.IntegerField(db_column='typeID')  # Field name made lowercase.
+    ownerid = models.IntegerField(db_column='ownerID')  # Field name made lowercase.
+    locationid = models.IntegerField(db_column='locationID')  # Field name made lowercase.
+    flagid = models.IntegerField(db_column='flagID')  # Field name made lowercase.
+    quantity = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'invItems'
+        
+class Invnames(models.Model):
+    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
+    itemname = models.CharField(db_column='itemName', max_length=200)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'invNames'
+        
+class Invtypes(models.Model):
+    typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
+    groupid = models.IntegerField(db_column='groupID', blank=True, null=True)  # Field name made lowercase.
+    typename = models.CharField(db_column='typeName', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    description = models.TextField(blank=True, null=True)
+    mass = models.FloatField(blank=True, null=True)
+    volume = models.FloatField(blank=True, null=True)
+    capacity = models.FloatField(blank=True, null=True)
+    portionsize = models.IntegerField(db_column='portionSize', blank=True, null=True)  # Field name made lowercase.
+    raceid = models.IntegerField(db_column='raceID', blank=True, null=True)  # Field name made lowercase.
+    baseprice = models.DecimalField(db_column='basePrice', max_digits=19, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
+    published = models.IntegerField(blank=True, null=True)
+    marketgroupid = models.IntegerField(db_column='marketGroupID', blank=True, null=True)  # Field name made lowercase.
+    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
+    soundid = models.IntegerField(db_column='soundID', blank=True, null=True)  # Field name made lowercase.
+    graphicid = models.IntegerField(db_column='graphicID', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'invTypes'
 
 class Agtagenttypes(models.Model):
     agenttypeid = models.IntegerField(db_column='agentTypeID', primary_key=True)  # Field name made lowercase.
@@ -568,18 +633,6 @@ class Industryblueprints(models.Model):
         managed = False
         db_table = 'industryBlueprints'
 
-
-class Invcategories(models.Model):
-    categoryid = models.IntegerField(db_column='categoryID', primary_key=True)  # Field name made lowercase.
-    categoryname = models.CharField(db_column='categoryName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
-    published = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'invCategories'
-
-
 class Invcontrabandtypes(models.Model):
     factionid = models.IntegerField(db_column='factionID', primary_key=True)  # Field name made lowercase.
     typeid = models.IntegerField(db_column='typeID')  # Field name made lowercase.
@@ -627,36 +680,6 @@ class Invflags(models.Model):
         managed = False
         db_table = 'invFlags'
 
-
-class Invgroups(models.Model):
-    groupid = models.IntegerField(db_column='groupID', primary_key=True)  # Field name made lowercase.
-    categoryid = models.IntegerField(db_column='categoryID', blank=True, null=True)  # Field name made lowercase.
-    groupname = models.CharField(db_column='groupName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
-    usebaseprice = models.IntegerField(db_column='useBasePrice', blank=True, null=True)  # Field name made lowercase.
-    anchored = models.IntegerField(blank=True, null=True)
-    anchorable = models.IntegerField(blank=True, null=True)
-    fittablenonsingleton = models.IntegerField(db_column='fittableNonSingleton', blank=True, null=True)  # Field name made lowercase.
-    published = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'invGroups'
-
-
-class Invitems(models.Model):
-    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
-    typeid = models.IntegerField(db_column='typeID')  # Field name made lowercase.
-    ownerid = models.IntegerField(db_column='ownerID')  # Field name made lowercase.
-    locationid = models.IntegerField(db_column='locationID')  # Field name made lowercase.
-    flagid = models.IntegerField(db_column='flagID')  # Field name made lowercase.
-    quantity = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'invItems'
-
-
 class Invmarketgroups(models.Model):
     marketgroupid = models.IntegerField(db_column='marketGroupID', primary_key=True)  # Field name made lowercase.
     parentgroupid = models.IntegerField(db_column='parentGroupID', blank=True, null=True)  # Field name made lowercase.
@@ -689,16 +712,6 @@ class Invmetatypes(models.Model):
     class Meta:
         managed = False
         db_table = 'invMetaTypes'
-
-
-class Invnames(models.Model):
-    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
-    itemname = models.CharField(db_column='itemName', max_length=200)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'invNames'
-
 
 class Invpositions(models.Model):
     itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
@@ -748,29 +761,6 @@ class Invtypereactions(models.Model):
         managed = False
         db_table = 'invTypeReactions'
         unique_together = (('reactiontypeid', 'input', 'typeid'),)
-
-
-class Invtypes(models.Model):
-    typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
-    groupid = models.IntegerField(db_column='groupID', blank=True, null=True)  # Field name made lowercase.
-    typename = models.CharField(db_column='typeName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    description = models.TextField(blank=True, null=True)
-    mass = models.FloatField(blank=True, null=True)
-    volume = models.FloatField(blank=True, null=True)
-    capacity = models.FloatField(blank=True, null=True)
-    portionsize = models.IntegerField(db_column='portionSize', blank=True, null=True)  # Field name made lowercase.
-    raceid = models.IntegerField(db_column='raceID', blank=True, null=True)  # Field name made lowercase.
-    baseprice = models.DecimalField(db_column='basePrice', max_digits=19, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
-    published = models.IntegerField(blank=True, null=True)
-    marketgroupid = models.IntegerField(db_column='marketGroupID', blank=True, null=True)  # Field name made lowercase.
-    iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
-    soundid = models.IntegerField(db_column='soundID', blank=True, null=True)  # Field name made lowercase.
-    graphicid = models.IntegerField(db_column='graphicID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'invTypes'
-
 
 class Invuniquenames(models.Model):
     itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
