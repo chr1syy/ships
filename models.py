@@ -73,6 +73,16 @@ class Invitems(models.Model):
         managed = False
         db_table = 'invItems'
         
+class Dgmtypeeffects(models.Model):
+    typeid = models.ForeignKey(Invtypes, on_delete=models.PROTECT, db_column='typeID', primary_key=True)  # Field name made lowercase.
+    effectid = models.IntegerField(db_column='effectID')  # Field name made lowercase.
+    isdefault = models.IntegerField(db_column='isDefault', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'dgmTypeEffects'
+        unique_together = (('typeid', 'effectid'),)
+        
 class Agtagenttypes(models.Model):
     agenttypeid = models.IntegerField(db_column='agentTypeID', primary_key=True)  # Field name made lowercase.
     agenttype = models.CharField(db_column='agentType', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -468,17 +478,6 @@ class Dgmtypeattributes(models.Model):
         managed = False
         db_table = 'dgmTypeAttributes'
         unique_together = (('typeid', 'attributeid'),)
-
-
-class Dgmtypeeffects(models.Model):
-    typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
-    effectid = models.IntegerField(db_column='effectID')  # Field name made lowercase.
-    isdefault = models.IntegerField(db_column='isDefault', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'dgmTypeEffects'
-        unique_together = (('typeid', 'effectid'),)
 
 
 class DjangoAdminLog(models.Model):
