@@ -3,6 +3,7 @@
 <div>Ship generals</div>
 <div>Ship Mass: <font id="mass"></font> -- Ship max. Velocity: <font id="veloc"></font></div>
 <div id="highs"></div>
+<div id="mids"></div>
 
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,7 +21,7 @@
 					$.ajax({
 						url: 'ajax/modules/',
 						data: {
-							'slot': 11,
+							'slot': 12,
 						},
 						async: false,
 						success: function(data){
@@ -34,6 +35,27 @@
 						$('#highs').append("<div><select id=highslot"+h+"><option value=0>Empty High Slot</option>");
 						$('#highslot'+h).append(options_high);
 						$('#highs').append("</select></div>");
+					};
+				};
+				if(data.data[13]){
+					var options_mid = ""
+					$.ajax({
+						url: 'ajax/modules/',
+						data: {
+							'slot': 13,
+						},
+						async: false,
+						success: function(data){
+							$.each(data, function(k, v){
+								options_mid += "<option value="+k+">"+v+"</option>";
+							});
+						}
+					});
+					$('#highs').append("<b>Mid Slots</b>");
+					for (m=0; m < data[14]; m++){
+						$('#mids').append("<div><select id=midslot"+h+"><option value=0>Empty Mid Slot</option>");
+						$('#midslot'+m).append(options_mid);
+						$('#mids').append("</select></div>");
 					};
 				};
 					
