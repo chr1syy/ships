@@ -32,18 +32,6 @@ class Invgroups(models.Model):
         managed = False
         db_table = 'invGroups'
 
-class Invitems(models.Model):
-    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
-    typeid = models.ForeignKey(Invtypes, on_delete=models.PROTECT ,db_column='typeID')  # Field name made lowercase.
-    ownerid = models.IntegerField(db_column='ownerID')  # Field name made lowercase.
-    locationid = models.IntegerField(db_column='locationID')  # Field name made lowercase.
-    flagid = models.IntegerField(db_column='flagID')  # Field name made lowercase.
-    quantity = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'invItems'
-
 class Invnames(models.Model):
     itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
     itemname = models.CharField(db_column='itemName', max_length=200)  # Field name made lowercase.
@@ -73,6 +61,18 @@ class Invtypes(models.Model):
         managed = False
         db_table = 'invTypes'
 
+class Invitems(models.Model):
+    itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
+    typeid = models.ForeignKey(Invtypes, on_delete=models.PROTECT ,db_column='typeID')  # Field name made lowercase.
+    ownerid = models.IntegerField(db_column='ownerID')  # Field name made lowercase.
+    locationid = models.IntegerField(db_column='locationID')  # Field name made lowercase.
+    flagid = models.IntegerField(db_column='flagID')  # Field name made lowercase.
+    quantity = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'invItems'
+        
 class Agtagenttypes(models.Model):
     agenttypeid = models.IntegerField(db_column='agentTypeID', primary_key=True)  # Field name made lowercase.
     agenttype = models.CharField(db_column='agentType', max_length=50, blank=True, null=True)  # Field name made lowercase.
