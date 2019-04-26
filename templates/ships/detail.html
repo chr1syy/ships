@@ -1,3 +1,20 @@
 <font size="14"><img src="https://imageserver.eveonline.com/Type/{{ shipid }}_32.png">{{ shipname }}</font>
 <div>{{ desc }}</div>
+<div>Ship generals</div>
+<div>Ship Mass: <font id="mass"></font> -- Ship max. Velocity: <font id="veloc"></font></div>
 
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			url: 'ajax/spawn/',
+			data: { },
+			success: function(data){
+				$('#mass').html(data.mass),
+				$('#veloc').html(data.veloc)
+			}
+		});
+	});
+</script>
+{% endblock %}
