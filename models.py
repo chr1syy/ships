@@ -19,7 +19,7 @@ class Invcategories(models.Model):
 
 class Invgroups(models.Model):
     groupid = models.IntegerField(db_column='groupID', primary_key=True)  # Field name made lowercase.
-    categoryid = models.ForeignKey(db_column='categoryID', blank=True, null=True)  # Field name made lowercase.
+    categoryid = models.ForeignKey(Invcategories, on_delete=models.PROTECT, db_column='categoryID')  # Field name made lowercase.
     groupname = models.CharField(db_column='groupName', max_length=100, blank=True, null=True)  # Field name made lowercase.
     iconid = models.IntegerField(db_column='iconID', blank=True, null=True)  # Field name made lowercase.
     usebaseprice = models.IntegerField(db_column='useBasePrice', blank=True, null=True)  # Field name made lowercase.
@@ -34,7 +34,7 @@ class Invgroups(models.Model):
 
 class Invitems(models.Model):
     itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
-    typeid = models.ForeignKey(db_column='typeID')  # Field name made lowercase.
+    typeid = models.ForeignKey(Invtypes, on_delete=models.PROTECT ,db_column='typeID')  # Field name made lowercase.
     ownerid = models.IntegerField(db_column='ownerID')  # Field name made lowercase.
     locationid = models.IntegerField(db_column='locationID')  # Field name made lowercase.
     flagid = models.IntegerField(db_column='flagID')  # Field name made lowercase.
@@ -54,7 +54,7 @@ class Invnames(models.Model):
  
 class Invtypes(models.Model):
     typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
-    groupid = models.ForeignKey(db_column='groupID', blank=True, null=True)  # Field name made lowercase.
+    groupid = models.ForeignKey(Invgroups, on_delete=models.PROTECT, db_column='groupID')  # Field name made lowercase.
     typename = models.CharField(db_column='typeName', max_length=100, blank=True, null=True)  # Field name made lowercase.
     description = models.TextField(blank=True, null=True)
     mass = models.FloatField(blank=True, null=True)
