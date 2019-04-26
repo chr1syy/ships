@@ -16,7 +16,7 @@ class Invcategories(models.Model):
     class Meta:
         managed = False
         db_table = 'invCategories'
-        
+
 class Invgroups(models.Model):
     groupid = models.IntegerField(db_column='groupID', primary_key=True)  # Field name made lowercase.
     categoryid = models.IntegerField(db_column='categoryID', blank=True, null=True)  # Field name made lowercase.
@@ -43,7 +43,7 @@ class Invitems(models.Model):
     class Meta:
         managed = False
         db_table = 'invItems'
-        
+
 class Invnames(models.Model):
     itemid = models.IntegerField(db_column='itemID', primary_key=True)  # Field name made lowercase.
     itemname = models.CharField(db_column='itemName', max_length=200)  # Field name made lowercase.
@@ -51,7 +51,7 @@ class Invnames(models.Model):
     class Meta:
         managed = False
         db_table = 'invNames'
-        
+ 
 class Invtypes(models.Model):
     typeid = models.IntegerField(db_column='typeID', primary_key=True)  # Field name made lowercase.
     groupid = models.IntegerField(db_column='groupID', blank=True, null=True)  # Field name made lowercase.

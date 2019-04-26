@@ -1,26 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 from . import get_ships
+from ships.models import Invgroups, Invtypes
+
 from eos import *
 from eos.item_filter import *
+
 import json
-# Create your views here.
 
 def index(request):
 	response = HttpResponse()
-	with open('/home/ubuntu/eos/phobos/invgroups.json') as f:
-		d = json.load(f)
-		for x in d:
-			if d[x]['categoryID'] == 6:
-				response.write("<a href='list/"+str(d[x]['groupID'])+"'>"+d[x]['groupName']+"</a><br>")
+	categorylist = Invgroups.objects.filter(categoryid="6")
+	for i in categorylist:
+		response.write("<a href='list/"+str(i.groupid)+"'>"+i.groupname+"</a><br>")
 	return response
 
-def list(request, categoryid):
-        ships = get_ships.get_ships(categoryid)
-        response = HttpResponse()
-        for (key,value) in ships.items():
-                response.write("<a href='/ships/"+str(value)+"'>"+str(key)+"</a><br>")
-        return response
+def list(request, groupid):
+	response = HttpResponse()
+	grouplist = Invtypes.objects.filter(groupid=groupid)
+	for i in grouplist:
+		if i.published == True:
+			response.write("<a href='/ships/"+str(i.typeid)+"'>"+str(i.typename)+"</a><br>")
+	return response
 
 def detail(request, shipid):
 	fit = ""
