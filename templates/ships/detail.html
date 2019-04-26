@@ -4,6 +4,8 @@
 <div>Ship Mass: <font id="mass"></font> -- Ship max. Velocity: <font id="veloc"></font></div>
 <div id="highs"></div>
 <div id="mids"></div>
+<div id="lows"></div>
+<div id="rigs"></div>
 
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -52,10 +54,52 @@
 						}
 					});
 					$('#highs').append("<b>Mid Slots</b>");
-					for (m=0; m < data[14]; m++){
+					for (m=0; m < data[13]; m++){
 						$('#mids').append("<div><select id=midslot"+m+"><option value=0>Empty Mid Slot</option>");
 						$('#midslot'+m).append(options_mid);
 						$('#mids').append("</select></div>");
+					};
+				};
+				if(data[11]){
+					var options_low = ""
+					$.ajax({
+						url: 'ajax/modules/',
+						data: {
+							'slot': 11,
+						},
+						async: false,
+						success: function(data){
+							$.each(data, function(k, v){
+								options_low += "<option value="+k+">"+v+"</option>";
+							});
+						}
+					});
+					$('#lows').append("<b>Low Slots</b>");
+					for (l=0; l < data[11]; l++){
+						$('#lows').append("<div><select id=lowslot"+l+"><option value=0>Empty Low Slot</option>");
+						$('#lowslot'+l).append(options_low);
+						$('#lows').append("</select></div>");
+					};
+				};
+				if(data[2263]){
+					var options_rig = ""
+					$.ajax({
+						url: 'ajax/modules/',
+						data: {
+							'slot': 2263,
+						},
+						async: false,
+						success: function(data){
+							$.each(data, function(k, v){
+								options_rig += "<option value="+k+">"+v+"</option>";
+							});
+						}
+					});
+					$('#rigs').append("<b>Rig Slots</b>");
+					for (r=0; r < data[11]; r++){
+						$('#rigs').append("<div><select id=riglot"+r+"><option value=0>Empty Rig Slot</option>");
+						$('#rigslot'+m).append(options_rig);
+						$('#rigs').append("</select></div>");
 					};
 				};
 					
