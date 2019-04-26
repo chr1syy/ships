@@ -2,6 +2,7 @@
 <div>{{ desc }}</div>
 <div>Ship generals</div>
 <div>Ship Mass: <font id="mass"></font> -- Ship max. Velocity: <font id="veloc"></font></div>
+<div id="highs"></div>
 
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -10,9 +11,28 @@
 		$.ajax({
 			url: 'ajax/spawn/',
 			data: { },
+			dataType: 'json',
 			success: function(data){
-				$('#mass').html(data.mass),
-				$('#veloc').html(data.veloc)
+				$('#mass').html(data[4]);
+				$('#veloc').html(data[37]);
+				if(data.hi_slot){
+					$('#highs').append("<b>High Slots</b>");
+					for (h=0; h < data[14]; h++){
+						$('#highs').append("<div><select id=highslot"+h+"><option value=0>Empty High Slot</option>");
+						$.ajax({
+							url: 'ajax/modules/',
+							async: false,
+							success: function(data){
+								$.each(data, function(k, v){
+									console.log("#highslot"+h+" : "+k+" : "+v);
+									$('#highslot'+h).append("<option value="+k+">"+v+"</option>");
+								});
+							}
+						});
+						$('#highs').append("</select></div>");
+					};
+				};
+					
 			}
 		});
 	});

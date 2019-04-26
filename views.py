@@ -58,8 +58,12 @@ def ajax_spawn(request, shipid):
 
 	fit.validate()
 
-	data = {
-		'mass': int(fit.ship.attrs[4]),
+	data = { }
+
+	for key,value in fit.ship.attrs.items():
+		data.update( { key: value })
+
+	data.update( {
 		'pg_out': int(fit.ship.attrs[11]),
 		'cpu_out': int(fit.ship.attrs[48]),
 		'veloc': int(fit.ship.attrs[37]),
@@ -75,6 +79,14 @@ def ajax_spawn(request, shipid):
 		'low_slot': int(fit.ship.attrs[12]),
 		'rig_slot': int(fit.ship.attrs[1137]),
 		'agil': int(fit.ship.attrs[70]),
+	})
+
+	return JsonResponse(data)
+
+def ajax_modules(request, shipid):
+
+	data = {
+	'test': 'test'
 	}
 
 	return JsonResponse(data)
