@@ -16,11 +16,11 @@
 				$('#mass').html(data[4]);
 				$('#veloc').html(data[37]);
 				if(data.hi_slot){
+					var options_high = ""
 					$.ajax({
 						url: 'ajax/modules/',
 						async: false,
 						success: function(data){
-							var options_high = ""
 							$.each(data, function(k, v){
 								options_high += "<option value="+k+">"+v+"</option>";
 							});
