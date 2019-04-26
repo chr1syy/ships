@@ -16,19 +16,20 @@
 				$('#mass').html(data[4]);
 				$('#veloc').html(data[37]);
 				if(data.hi_slot){
+					$.ajax({
+						url: 'ajax/modules/',
+						async: false,
+						success: function(data){
+							var options_high = ""
+							$.each(data, function(k, v){
+								$options_high.append("<option value="+k+">"+v+"</option>");
+							});
+						}
+					});
 					$('#highs').append("<b>High Slots</b>");
 					for (h=0; h < data[14]; h++){
 						$('#highs').append("<div><select id=highslot"+h+"><option value=0>Empty High Slot</option>");
-						$.ajax({
-							url: 'ajax/modules/',
-							async: false,
-							success: function(data){
-								$.each(data, function(k, v){
-									console.log("#highslot"+h+" : "+k+" : "+v);
-									$('#highslot'+h).append("<option value="+k+">"+v+"</option>");
-								});
-							}
-						});
+						$('#highs').append($options_high);
 						$('#highs').append("</select></div>");
 					};
 				};
