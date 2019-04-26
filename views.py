@@ -84,12 +84,12 @@ def ajax_spawn(request, shipid):
 	return JsonResponse(data)
 
 def ajax_modules(request, shipid):
-	low_slots = Dgmtypeeffects.objects.filter(effectid__exact=11)
+
+	slot = request.GET.get("slot", None)
+	low_slots = Dgmtypeeffects.objects.filter(effectid__exact=slot)
 	modules = Invtypes.objects.filter(typeid__in=low_slots)
 	data = { }
 	for module in modules:
 		data.update({ module.typeid : module.typename })
-
-	print(data)
 
 	return JsonResponse(data)
