@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
-from . import get_ships
 from ships.models import Invgroups, Invtypes, Dgmtypeeffects
 
 from eos import *
@@ -10,13 +9,15 @@ from eos.item_filter import *
 
 import json
 
-#does outsourcing work?
-data_handler = JsonDataHandler('/home/ubuntu/eos/phobos/')  # Folder with Phobos data dump
+######## EOS Enginge Settings ########
+data_handler = JsonDataHandler('/home/ubuntu/eos/phobos/')
 cache_handler = JsonCacheHandler('/home/ubuntu/eos/cache/eos_tq.json.bz2')
 SourceManager.add('tiamat', data_handler, cache_handler, make_default=True)
 
 skill_groups = set(row['groupID'] for row in data_handler.get_evegroups() if row['categoryID'] == 16)
 skills = set(row['typeID'] for row in data_handler.get_evetypes() if row['groupID'] in skill_groups)
+
+
 
 
 def index(request):
@@ -62,24 +63,6 @@ def ajax_spawn(request, shipid):
 
 	for key,value in fit.ship.attrs.items():
 		data.update( { key: value })
-
-	data.update( {
-		'pg_out': int(fit.ship.attrs[11]),
-		'cpu_out': int(fit.ship.attrs[48]),
-		'veloc': int(fit.ship.attrs[37]),
-		'sig': int(fit.ship.attrs[552]),
-		'scanres': int(fit.ship.attrs[564]),
-		'target_range': int(fit.ship.attrs[76]),
-		'warp': int(fit.ship.attrs[600]),
-		'cargo': int(fit.ship.attrs[38]),
-		'cargo_drone': int(fit.ship.attrs[283]),
-		'drone_bw': int(fit.ship.attrs[1271]),
-		'hi_slot': int(fit.ship.attrs[14]),
-		'mid_slot': int(fit.ship.attrs[13]),
-		'low_slot': int(fit.ship.attrs[12]),
-		'rig_slot': int(fit.ship.attrs[1137]),
-		'agil': int(fit.ship.attrs[70]),
-	})
 
 	return JsonResponse(data)
 
